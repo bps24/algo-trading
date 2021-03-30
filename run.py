@@ -9,7 +9,7 @@ import shift
 def main(argv):
     trader = shift.Trader(credentials.user)
     try:
-        trader.connect("initiator.cfg", credentials.password)
+        trader.connect(credentials.user, credentials.password)
     except shift.IncorrectPasswordError as e:
         print(e)
     except shift.ConnectionTimeoutError as e:
@@ -19,7 +19,7 @@ def main(argv):
     aapl_mb = shift.Order(shift.Order.Type.MARKET_BUY, "AAPL", 1)
     trader.submit_order(aapl_mb)
     print('trade completed')
-    
+
     time.sleep(200)
 
     trader.disconnect()
