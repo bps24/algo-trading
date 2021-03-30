@@ -7,9 +7,13 @@ import shift
 
 
 def main(argv):
-    trader = shift.Trader(credentials.user)
+    trader = shift.Trader("democlient")
     try:
+<<<<<<< Updated upstream
         trader.connect(credentials.user, credentials.password)
+=======
+        trader.connect("initiator.cfg", "password")
+>>>>>>> Stashed changes
     except shift.IncorrectPasswordError as e:
         print(e)
     except shift.ConnectionTimeoutError as e:
@@ -23,6 +27,8 @@ def main(argv):
     time.sleep(200)
 
     trader.disconnect()
+
+
 
 
 if __name__ == "__main__":
