@@ -1,6 +1,3 @@
-import sys
-import time
-import datetime as dt
 import shift
 
 def portfolio_summary(trader: shift.Trader):
