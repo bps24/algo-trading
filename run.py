@@ -16,8 +16,11 @@ def main(argv):
         print(e)
 
 
-    ## Let's make some money
-
+    aapl_mb = shift.Order(shift.Order.Type.MARKET_BUY, "AAPL", 1)
+    trader.submit_order(aapl_mb)
+    print('trade completed')
+    
+    time.sleep(200)
 
     trader.disconnect()
 
