@@ -28,9 +28,11 @@ def main(argv):
     wait_for_open(trader,dt.datetime.combine(today,startTime),1)
     endtime = dt.time(15,50,00)
 
+    portfolio_summary(trader)
+
     threads = []
     for item in trader.get_stock_list():
-        strat = threading.Thread(target=sma_strategy, args=[trader,item,endtime])
+        strat = threading.Thread(target=sma_strategy, args=[trader,item, True, endtime])
         threads.append(strat)
 
     time.sleep(10)
