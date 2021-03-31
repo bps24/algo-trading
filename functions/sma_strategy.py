@@ -42,12 +42,12 @@ def sma_strategy(trader: shift.Trader, ticker: str, endtime, state = "IN"):
                 transaction_summary(trader, pos)
         elif state == "ABOVE" and cur2 <= b_upper: ## IF previously above, but now between
             pos = shift.Order(shift.Order.Type.MARKET_SELL, ticker, abs(trader.get_portfolio_item(ticker).get_shares()))
-            enter = "IN"
+            state = "IN"
             trader.submit_order(pos)
             transaction_summary(trader, pos)
         elif state == "BELOW" and cur >= b_lower: ## If previously below, but now between
             pos = shift.Order(shift.Order.Type.MARKET_BUY, ticker, abs(trader.get_portfolio_item(ticker).get_shares()))
-            enter = "IN"
+            state = "IN"
             trader.submit_order(pos)
             transaction_summary(trader, pos)
 
