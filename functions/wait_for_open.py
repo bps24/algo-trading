@@ -7,7 +7,7 @@ def wait_for_open(trader: shift.Trader, start_time, wait):
 
     now = trader.get_last_trade_time()
 
-    while start_time <= now:
+    while start_time >= now:
         print('Wating at '+ str(now))
         time.sleep(wait)
         now = trader.get_last_trade_time()
