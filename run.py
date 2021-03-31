@@ -24,30 +24,23 @@ def main(argv):
         print(e)
 
     today = trader.get_last_trade_time().date()
-    startTime = dt.time(9,30,30)
+    startTime = dt.time(9,30,00)
     wait_for_open(trader,dt.datetime.combine(today,startTime),1)
-
-    #TODO Wait Until Trading Start
+    endtime = dt.time(15,50,00)
 
     threads = []
     for item in trader.get_stock_list():
-        print(item)
-        strat = threading.Thread(target=sma_strategy, args=[trader,item])
+        strat = threading.Thread(target=sma_strategy, args=[trader,item,endtime])
         threads.append(strat)
 
-    
-    #TODO Create a loop that creates threads that manaages liquidity / capital for each stock 
+    time.sleep(10)
     for strat in threads:
         strat.start()
 
-
+    time.sleep(10)
     for strat in threads:
         strat.join()
     
-    
-
-    
-    #TODO Begin closing positions at 3:50
     close_positions(trader)
 
     trader.disconnect()
