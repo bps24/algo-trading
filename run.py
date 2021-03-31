@@ -23,19 +23,20 @@ def main(argv):
     except shift.ConnectionTimeoutError as e:
         print(e)
 
-    today = trader.get_last_trade_time().date()
-    startTime = dt.time(9,30,00)
-    wait_for_open(trader,dt.datetime.combine(today,startTime),1)
-    endtime = dt.time(15,50,00)
-
+    lag = 1
+    today = wait_for_open(trader,lag).date()
+    end_time = dt.datetime.combine(today,dt.time(23,30,0))
+    print("ENDTIME ", end_time)
+    
     threads = []
     for item in trader.get_stock_list():
-        strat = threading.Thread(target=sma_strategy, args=[trader,item,endtime])
+
+        strat = threading.Thread(target=sma_strategy, args=[trader,item,end_time])
         threads.append(strat)
 
-    time.sleep(10)
     for strat in threads:
         strat.start()
+        time.sleep(1)
 
     time.sleep(10)
     for strat in threads:
