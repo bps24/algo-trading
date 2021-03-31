@@ -10,7 +10,7 @@ sys.path.insert(1, './functions')
 from portfolio_summary import portfolio_summary
 from close_positions import close_positions
 from sma_strategy import sma_strategy
-
+from wait_for_open import wait_for_open
 
 def main(argv):
     
@@ -23,8 +23,11 @@ def main(argv):
     except shift.ConnectionTimeoutError as e:
         print(e)
 
+    today = trader.get_last_trade_time().date()
+    startTime = dt.time(9,30,30)
+    wait_for_open(trader,dt.datetime.combine(today,startTime),1)
 
-    #TODO Wait Until Trading Starts
+    #TODO Wait Until Trading Start
 
     threads = []
     for item in trader.get_stock_list():
@@ -37,6 +40,7 @@ def main(argv):
     for strat in threads:
         strat.start()
 
+
     for strat in threads:
         strat.join()
     
@@ -47,8 +51,6 @@ def main(argv):
     close_positions(trader)
 
     trader.disconnect()
-
-
 
 
 if __name__ == "__main__":
