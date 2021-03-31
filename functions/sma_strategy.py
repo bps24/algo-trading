@@ -19,7 +19,7 @@ def sma_strategy(trader: shift.Trader, ticker: str, enter, endtime):
         prices = pd.Series(trader.get_sample_prices(ticker, True))
         time.sleep(1)
 
-        sma = prices[:19].mean()
+        sma = prices[-20:].mean()
         #print(sma)
         b_upper = sma + (prices[:19].std() * 2.0)
         b_lower = sma - (prices[:19].std() * 2.0)
