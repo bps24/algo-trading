@@ -2,6 +2,9 @@
 
 Stevens High Frequency Trading (SHIFT) Simulation Competition
 
+This is the code for competition week 0:
+Submitted 3/31/21 @ 8:00 am 
+
 ### Contributors
 - Bryce Streeper https://www.linkedin.com/in/bryce-streeper
 - Christopher Davis https://www.linkedin.com/in/christopher-davis-0b344619b/
@@ -48,6 +51,5 @@ Account name: money_talks
 
 Password: ZUpNx5wBX4
 
-#### Lets get this bread
 
 
