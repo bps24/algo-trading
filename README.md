@@ -16,7 +16,6 @@ Stevens High Frequency Trading (SHIFT) Simulation Competition
 ### Possible Strategies
 #### Strategy to Implement by 3/31: 
 - Bollinger Band Strategy
-- Liquidity / Capital Management Strategy
 
 
 ### Commands for the Boys
@@ -30,7 +29,7 @@ ssh myteam@155.246.104.84
 cd SHIFT
 
 ./startup.sh 
-^ can try this at the end : -d 2012-12-24
+./startup.sh -d 2012-12-24
 
 exit
 

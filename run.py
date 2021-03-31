@@ -18,32 +18,52 @@ def main(argv):
     trader = shift.Trader(credentials.user)
     try:
         trader.connect("initiator.cfg", credentials.password)
+        print("Connected")
     except shift.IncorrectPasswordError as e:
         print(e)
     except shift.ConnectionTimeoutError as e:
         print(e)
 
-    lag = 1
-    today = wait_for_open(trader,lag).date()
-    end_time = dt.datetime.combine(today,dt.time(23,30,0))
-    print("ENDTIME ", end_time)
+
+    time.sleep(10)
+    lag = 5
+
+    today_date = trader.get_last_trade_time().date()
+    start_time = dt.time(9,31,0)
+    start = dt.datetime.combine(today_date,start_time)
+    print("START ", start)
+    wait_for_open(trader,start,lag)
+
+    end = dt.datetime.combine(today_date,dt.time(15,45,0))
+    print("END ", end)
     
     threads = []
     for item in trader.get_stock_list():
-
-        strat = threading.Thread(target=sma_strategy, args=[trader,item,end_time])
+        strat = threading.Thread(target=sma_strategy, args=[trader,item,end])
         threads.append(strat)
+
+    print("ALL THREADS CREATED")
 
     for strat in threads:
         strat.start()
         time.sleep(1)
 
+    print("ALL THREADS STARTED")
+
     time.sleep(10)
     for strat in threads:
         strat.join()
-    
-    close_positions(trader)
 
+    print("ALL THREADS JOINED")
+
+    time.sleep(50)
+
+    print("CLOSING UP SHOP")
+
+    close_positions(trader)
+    time.sleep(50)
+    
+    print("Final buying power:",trader.get_portfolio_summary().get_total_bp())
     trader.disconnect()
 
 
