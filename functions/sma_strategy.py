@@ -13,16 +13,15 @@ def sma_strategy(trader: shift.Trader, ticker: str, endtime, state = "IN"):
 
     print('Threading ' + ticker)
     now =  trader.get_last_trade_time().time()
-    while endtime > now:
+    while endtime.time() > now:
         time.sleep(5)
         now =  trader.get_last_trade_time().time()
         prices = pd.Series(trader.get_sample_prices(ticker, True))
         time.sleep(1)
 
         sma = prices[-20:].mean()
-        #print(sma)
-        b_upper = sma + (prices[:19].std() * 2.0)
-        b_lower = sma - (prices[:19].std() * 2.0)
+        b_upper = sma + (prices[-20:].std() * 2.0)
+        b_lower = sma - (prices[-20:].std() * 2.0)
 
         cur = trader.get_close_price(ticker, True, 1)
         cur2 = trader.get_close_price(ticker, False, 1)
