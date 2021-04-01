@@ -11,6 +11,7 @@ from portfolio_summary import portfolio_summary
 from close_positions import close_positions
 from sma_strategy import sma_strategy
 from wait_for_open import wait_for_open
+from summary_thread import summary_thread
 
 def main(argv):
     
@@ -36,12 +37,15 @@ def main(argv):
 
     end = dt.datetime.combine(today_date,dt.time(15,45,0))
     print("END ", end)
+    close_positions(trader)
+    portfolio_summary(trader)
     
     threads = []
     for item in trader.get_stock_list():
         strat = threading.Thread(target=sma_strategy, args=[trader,item,end])
         threads.append(strat)
-
+    port = threading.Thread(target=summary_thread, args=[trader, end])
+    threads.append(port)
     print("ALL THREADS CREATED")
 
     for strat in threads:
