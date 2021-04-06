@@ -1,6 +1,9 @@
 import shift
+import time
 
 def portfolio_summary(trader: shift.Trader):
+
+
     """Prints a snapshot of the portfolio performance and holdings"""
     print("--------------------------------Portfolio Summary--------------------------------")
     print(

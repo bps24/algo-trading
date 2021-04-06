@@ -20,6 +20,10 @@ Stevens High Frequency Trading (SHIFT) Simulation Competition
 
 ### Commands for the Boys
 
+[connect to the VPN]
+
+conda deactivate
+
 conda activate shift
 
 ssh myteam@155.246.104.84
@@ -29,11 +33,13 @@ ssh myteam@155.246.104.84
 cd SHIFT
 
 ./startup.sh 
-./startup.sh -d 2012-12-24
+./startup.sh -d 2019-10-02
 
 exit
 
 python run.py
+
+[navigate to: 155.246.104.84]
 
 ### ACCOUNT INFO for the Boys 
 VM IP: 155.246.104.84

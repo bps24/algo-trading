@@ -27,14 +27,16 @@ def main(argv):
 
 
     time.sleep(10)
-    lag = 5
+    lag = 2
 
     today_date = trader.get_last_trade_time().date()
     start_time = dt.time(9,31,0)
     start = dt.datetime.combine(today_date,start_time)
+    time.sleep(5)
+
+
     print("START ", start)
     wait_for_open(trader,start,lag)
-
     end = dt.datetime.combine(today_date,dt.time(15,45,0))
     print("END ", end)
     close_positions(trader)
@@ -44,6 +46,7 @@ def main(argv):
     for item in trader.get_stock_list():
         strat = threading.Thread(target=sma_strategy, args=[trader,item,end])
         threads.append(strat)
+
     port = threading.Thread(target=summary_thread, args=[trader, end])
     threads.append(port)
     print("ALL THREADS CREATED")
