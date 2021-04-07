@@ -37,7 +37,7 @@ def main(argv):
 
     print("START ", start)
     wait_for_open(trader,start,lag)
-    end = dt.datetime.combine(today_date,dt.time(15,45,0))
+    end = dt.datetime.combine(today_date,dt.time(15,30,0))
     print("END ", end)
     close_positions(trader)
     portfolio_summary(trader)

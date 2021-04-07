@@ -8,9 +8,9 @@ START_NAV = 1000000
 SHARE_MULT = 100
 NUM_OF_STOCKS = 30
 
-PERIOD = 30
-Z = 2
-LAG = 10
+PERIOD = 40
+Z = 2.5
+LAG = 15
 
 def sma_strategy(trader: shift.Trader, ticker: str, endtime, state = "IN"):
 
@@ -23,10 +23,13 @@ def sma_strategy(trader: shift.Trader, ticker: str, endtime, state = "IN"):
         prices.append(trader.get_last_price(ticker))
         time.sleep(1)
 
+        
+        """
         if len(prices) < 31:
             if ticker == "CSCO":
                 print(prices)
             continue
+        """
 
         df = pd.DataFrame(prices[-1*PERIOD:])
         ema = float(df.ewm(com=.5).mean()[0].iloc[[-1]])
@@ -34,11 +37,13 @@ def sma_strategy(trader: shift.Trader, ticker: str, endtime, state = "IN"):
         b_upper = ema + sd * Z
         b_lower = ema - sd * Z
         cur = trader.get_last_price(ticker)
+        """
         if ticker == "CSCO":
             print(ema)
             print(b_upper)
             print(b_lower)
             print(cur)
+        """
         
         
         if state == "IN": ## If previously between lines
