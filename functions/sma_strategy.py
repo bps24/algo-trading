@@ -12,6 +12,7 @@ PERIOD = 40
 Z = 2.5
 LAG = 15
 
+
 def sma_strategy(trader: shift.Trader, ticker: str, endtime, state = "IN"):
 
     print('Threading ' + ticker)
