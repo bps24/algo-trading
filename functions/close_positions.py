@@ -1,10 +1,10 @@
 import shift
 
-def close_positions(trader: shift.Trader, ticker: str = "ALL"):
+def close_positions(trader: shift.Trader, ticker: str = "ALL", f=None):
     if ticker == "ALL":
         trader.cancel_all_pending_orders()
         for item in trader.get_portfolio_items():
-            close_positions(trader, item)
+            close_positions(trader, item, f)
 
     elif ticker == "SHORT":
         for item in trader.get_portfolio_items().values():
@@ -25,3 +25,4 @@ def close_positions(trader: shift.Trader, ticker: str = "ALL"):
             cover_short = shift.Order(shift.Order.Type.MARKET_BUY, item.get_symbol(), int(item.get_shares() / -100))
             trader.submit_order(cover_short)
         print("All", ticker, "positions exited")
+        f.write("All " + str(ticker) + " positions exited")
