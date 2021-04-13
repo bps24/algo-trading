@@ -13,10 +13,9 @@ Z = 2.5
 LAG = 15
 
 
-def sma_strategy(trader: shift.Trader, ticker: str, endtime, f, state = "IN", ):
+def sma_strategy(trader: shift.Trader, ticker: str, endtime, state = "IN"):
 
     print('Threading ' + ticker)
-    f.write('Threading ' + ticker)
     now =  trader.get_last_trade_time().time()
     prices = []
     while endtime.time() > now:
@@ -54,23 +53,23 @@ def sma_strategy(trader: shift.Trader, ticker: str, endtime, f, state = "IN", ):
                 pos = shift.Order(shift.Order.Type.MARKET_BUY, ticker, amt)
                 state = "ABOVE"
                 trader.submit_order(pos)
-                transaction_summary(trader, pos, f)
+                transaction_summary(trader, pos)
             elif cur <= b_lower: ## If below under
                 amt = int((float(trader.get_portfolio_summary().get_total_realized_pl()) + START_NAV) / NUM_OF_STOCKS / SHARE_MULT / cur)
                 pos = shift.Order(shift.Order.Type.MARKET_SELL, ticker, amt)
                 state = "BELOW"
                 trader.submit_order(pos)
-                transaction_summary(trader, pos, f)
+                transaction_summary(trader, pos)
         elif state == "ABOVE" and cur <= ema: ## IF previously above, but now between
             pos = shift.Order(shift.Order.Type.MARKET_SELL, ticker, int(abs(trader.get_portfolio_item(ticker).get_shares())/SHARE_MULT))
             state = "IN"
             trader.submit_order(pos)
-            transaction_summary(trader, pos, f)
+            transaction_summary(trader, pos)
         elif state == "BELOW" and cur >= ema: ## If previously below, but now between
             pos = shift.Order(shift.Order.Type.MARKET_BUY, ticker, int(abs(trader.get_portfolio_item(ticker).get_shares())/SHARE_MULT))
             state = "IN"
             trader.submit_order(pos)
-            transaction_summary(trader, pos, f)
+            transaction_summary(trader, pos)
 
 
     trader.cancel_all_sample_prices_requests()

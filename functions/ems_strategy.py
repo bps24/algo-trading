@@ -9,7 +9,7 @@ SHARE_MULT = 100
 NUM_OF_STOCKS = 30
 
 
-def ema_strategy(trader: shift.Trader, ticker: str, endtime, state = "BELOW", f):
+def ema_strategy(trader: shift.Trader, ticker: str, endtime, state = "BELOW"):
     """Enter long positions and exit short posistions
         when the price crosses above exponential moving average. Exit
         long positions and enter short positions when price crosses
@@ -17,7 +17,6 @@ def ema_strategy(trader: shift.Trader, ticker: str, endtime, state = "BELOW", f)
 
 
     print('Threading ' + ticker)
-    f.write("Threading " + str(ticker))
     now =  trader.get_last_trade_time().time()
     prices = []
     while endtime.time() > now:
