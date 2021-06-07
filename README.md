@@ -18,18 +18,13 @@ Stevens High Frequency Trading (SHIFT) Simulation Competition
 - Bollinger Band Strategy
 
 
-### Commands for the Boys
+### Command help
 
 [connect to the VPN]
-
 conda deactivate
-
 conda activate shift
-
 ssh myteam@155.246.104.84
-
 1qaz2wsx
-
 cd SHIFT
 
 ./startup.sh 
@@ -40,20 +35,4 @@ exit
 python run.py
 
 [navigate to: 155.246.104.84]
-
-### ACCOUNT INFO for the Boys 
-VM IP: 155.246.104.84
-
-Ubuntu Username: myteam
-
-Password: 1qaz2wsx
-
-SHIFT competition account:
-
-Account name: money_talks 
-
-Password: ZUpNx5wBX4
-
-#### Lets get this bread
-
 
